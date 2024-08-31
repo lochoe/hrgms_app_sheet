@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Pawn Letter</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background-color: #343a40;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+        .btn-custom:hover {
+            background-color: #495057;
+        }
+        #loading {
+            display: none;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Upload Your Pawn Letter Test 15</h3>
+                        <form id="uploadForm">
+                            <div class="form-group">
+                                <label for="fileInput">Select Image</label>
+                                <input type="file" class="form-control-file" id="fileInput" required accept="image/*">
+                            </div>
+                            <button type="button" class="btn btn-custom btn-block" onclick="uploadFile()">Upload</button>
+                        </form>
+                        <p id="status" class="text-center mt-3"></p>
+                        <p id="loading" class="text-center">⏳ Uploading, please wait...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function uploadFile() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+
+            if (file) {
+                document.getElementById('status').textContent = '';
+                document.getElementById('loading').style.display = 'block';
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var dataURL = e.target.result;
+                    var base64Data = dataURL.split(',')[1];
+
+                    google.script.run.withSuccessHandler(function(response) {
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('status').textContent = response;
+                    }).withFailureHandler(function(error) {
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('status').textContent = 'Upload failed: ' + error.message;
+                    }).processImageUpload(base64Data, file.name);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById('status').textContent = 'Please select a file to upload.';
+            }
+        }
+    </script>
+</body>
+</html>
