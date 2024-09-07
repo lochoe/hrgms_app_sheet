@@ -21,6 +21,7 @@ function appendToLastRow(extractedData, imageId, imageUrl) {
       extractedData["Monthly Interest Rate (%)"] ? extractedData["Monthly Interest Rate (%)"].toString().trim() : "",
       extractedData["Nombor Telefon"] ? extractedData["Nombor Telefon"].toString().trim() : "",
       extractedData["Working Hour"] ? extractedData["Working Hour"].toString().trim() : "",
+      extractedData["Item Details"] ? extractedData["Item Details"].toString().trim() : "", // Add item details
       imageUrl,
       "" // userPhone, left empty for manual input
     ];
@@ -41,15 +42,15 @@ function appendToLastRow(extractedData, imageId, imageUrl) {
 }
 
 function processDates(extractedData) {
-    const dates = [];
+  const dates = [];
 
-    // Collect all possible date fields
-    if (extractedData["Pajak Date"]) dates.push(extractedData["Pajak Date"]);
-    if (extractedData["Expired Date"]) dates.push(extractedData["Expired Date"]);
+  // Collect all possible date fields
+  if (extractedData["Pajak Date"]) dates.push(extractedData["Pajak Date"]);
+  if (extractedData["Expired Date"]) dates.push(extractedData["Expired Date"]);
 
-    // If we have at least two dates, assign them
-    if (dates.length >= 2) {
-        extractedData["Pajak Date"] = dates[0];
-        extractedData["Expired Date"] = dates[1];
-    }
+  // If we have at least two dates, assign them
+  if (dates.length >= 2) {
+    extractedData["Pajak Date"] = dates[0];
+    extractedData["Expired Date"] = dates[1];
+  }
 }

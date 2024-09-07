@@ -14,7 +14,8 @@ function callChatGptApi(extractedText, isArRahnuLetter) {
 9. Amaun Bulanan Upah Simpan (RM) (This is the storage fee, look for total amount over 6 months and calculate the monthly fee)
 10. Kadar Faedah Bulanan (%) (This may be indirectly calculated from the storage fee, so calculate using the formula: (6 months charge / 6) / Nilai Pembiayaan)
 11. Nombor Telefon
-12. Waktu Operasi`;
+12. Waktu Operasi
+13. Item Details (Look for descriptions of pawn items like "rantai tangan 916", "cincin emas bengkok 750", "loket emas (b)", etc. If there are multiple items, list them in a simple paragraph)`;
   } else {
     promptContent = `Extract the following details from the pawn letter text and return them in valid JSON format. Ensure each field is present, even if the value is empty:
 1. Pajak Gadai Name
@@ -28,7 +29,8 @@ function callChatGptApi(extractedText, isArRahnuLetter) {
 9. Amount Monthly Interest (RM)
 10. Monthly Interest Rate (%) (Look for percentages like "1.5%", "2%", "2.0%")
 11. Nombor Telefon
-12. Working Hour`;
+12. Working Hour
+13. Item Details (Look for descriptions of pawn items like "rantai tangan 916", "cincin emas bengkok 750", "loket emas (b)", etc. If there are multiple items, list them in a simple paragraph)`;
   }
 
   const payload = {
