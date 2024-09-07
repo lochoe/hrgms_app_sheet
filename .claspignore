@@ -1,1 +1,20 @@
-echo "config.gs" > .claspignore
+# Ignore node_modules directory
+node_modules/
+
+# Ignore Git directory
+.git/
+
+# Ignore VSCode settings directory
+.vscode/
+
+# Ignore virtual environment directory
+venv/
+
+# Ignore BFG Repo-Cleaner JAR file
+bfg.jar
+
+# Ignore the fresh_clone directory
+fresh_clone/
+
+# Ignore config.js file
+config.js
